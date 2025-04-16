@@ -8,8 +8,18 @@ const nextConfig: NextConfig = {
   distDir: '.next',
   
   // Use this to allow request from other origins
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      }
+    ]
+  },
   // such as your workspace url
-  allowedDevOrigins: ['9002-idx-studio-1744790472926.cluster-ikxjzjhlifcwuroomfkjrx437g.cloudworkstations.dev'],
+  allowedDevOrigins: ['https://9004-idx-studio-1744790472926.cluster-ikxjzjhlifcwuroomfkjrx437g.cloudworkstations.dev'],
 
   eslint: {
     ignoreDuringBuilds: true,
