@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,9 +8,26 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
+import { useState, useEffect } from 'react';
+
+const images = [
+  "https://picsum.photos/1200/400",
+  "https://picsum.photos/1200/401",
+  "https://picsum.photos/1200/402",
+];
 
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(intervalId); // Clean up the interval on unmount
+  }, [images.length]);
+
   return (
     <div className="container mx-auto py-10">
       {/* Hero Section */}
@@ -25,11 +44,12 @@ export default function Home() {
         </div>
         <div className="mt-8">
           <Image
-            src="https://picsum.photos/1200/400"
+            src={images[currentImageIndex]}
             alt="AI-HUB Institute Hero Image"
             width={1200}
             height={400}
             className="rounded-lg shadow-md"
+            key={currentImageIndex} // Add key to force re-render on image change
           />
         </div>
       </section>
